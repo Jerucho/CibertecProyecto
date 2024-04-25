@@ -55,6 +55,7 @@ public class InicioSesion extends JFrame implements ActionListener {
 	 * Create the frame.
 	 */
 	public InicioSesion() {
+		setResizable(false);
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setBounds(100, 100, 708, 447);
 		contentPane = new JPanel();
@@ -92,6 +93,7 @@ public class InicioSesion extends JFrame implements ActionListener {
 		contentPane.add(lblNewLabel_2);
 		
 		txtUsuario = new JTextField();
+		txtUsuario.setFont(new Font("Tahoma", Font.BOLD, 13));
 		txtUsuario.setBorder(null);
 		txtUsuario.setBounds(338, 144, 217, 37);
 		contentPane.add(txtUsuario);
@@ -114,6 +116,7 @@ public class InicioSesion extends JFrame implements ActionListener {
 		contentPane.add(lblNewLabel_3);
 		
 		txtContrasena = new JPasswordField();
+		txtContrasena.setFont(new Font("Tahoma", Font.PLAIN, 13));
 		txtContrasena.setBounds(338, 227, 217, 37);
 		txtContrasena.setBorder(null);
 		contentPane.add(txtContrasena);

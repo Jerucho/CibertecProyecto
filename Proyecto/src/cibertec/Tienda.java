@@ -2,62 +2,27 @@ package cibertec;
 
 import java.awt.Color;
 import java.awt.EventQueue;
-
-import javax.swing.JFrame;
-import javax.swing.JPanel;
-import javax.swing.border.EmptyBorder;
-import javax.swing.UIManager;
-import java.awt.event.ActionListener;
-import java.awt.event.ActionEvent;
-import javax.swing.JMenuBar;
-import javax.swing.JMenu;
-import javax.swing.JLabel;
 import java.awt.Font;
-import javax.swing.JButton;
 import java.awt.GridLayout;
 import java.awt.Rectangle;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+
+import javax.swing.JButton;
+import javax.swing.JFrame;
+import javax.swing.JLabel;
+import javax.swing.JMenu;
+import javax.swing.JMenuBar;
 import javax.swing.JMenuItem;
+import javax.swing.JPanel;
+import javax.swing.UIManager;
+import javax.swing.border.EmptyBorder;
 
 public class Tienda extends JFrame implements ActionListener {
 
 	private static final long serialVersionUID = 1L;
 	private JPanel contentPane;
-	
-	// Datos mínimos de la primera cocina
-	public static String modelo0 = "Mabe EMP6120PG0";
-	public static double precio0 = 949.0;
-	public static double fondo0 = 58.6;
-	public static double ancho0 = 60.0;
-	public static double alto0 = 91.0;
-	public static int quemadores0 = 4;
-	// Datos mínimos de la segunda cocina
-	public static String modelo1 = "Indurama Parma";
-	public static double precio1 = 1089.0;
-	public static double ancho1 = 80.0;
-	public static double alto1 = 94.0;
-	public static double fondo1 = 67.5;
-	public static int quemadores1 = 6;
-	// Datos mínimos de la tercera cocina
-	public static String modelo2 = "Sole COSOL027";
-	public static double precio2 = 850.0;
-	public static double ancho2 = 60.0;
-	public static double alto2 = 90.0;
-	public static double fondo2 = 50.0;
-	public static int quemadores2 = 4;
-	// Datos mínimos de la cuarta cocina
-	public static String modelo3 = "Coldex CX602";
-	public static double precio3 = 629.0;
-	public static double ancho3 = 61.6;
-	public static double alto3 = 95.0;
-	public static double fondo3 = 51.5;
-	public static int quemadores3 = 5;
-	// Datos mínimos de la quinta cocina
-	public static String modelo4 = "Reco Dakota";
-	public static double precio4 = 849.0;
-	public static double ancho4 = 75.4;
-	public static double alto4 = 94.5;
-	public static double fondo4 = 66.0;
-	public static int quemadores4 = 5;
+
 	private JMenuBar menuBar;
 	private JMenu mnNewMenu;
 	private JMenu mnNewMenu_1;
@@ -67,17 +32,17 @@ public class Tienda extends JFrame implements ActionListener {
 	private JPanel panel;
 	private JLabel lblNewLabel;
 	private JPanel panel_1;
-	private JButton btnNewButton;
-	private JButton btnNewButton_1;
-	private JButton btnNewButton_2;
-	private JButton btnNewButton_3;
-	private JButton btnNewButton_4;
-	private JButton btnNewButton_5;
-	private JMenuItem mntmNewMenuItem;
+	private JButton btnListarCocinas;
+	private JButton btnVerCocina;
+	private JButton btnGenerarReporte;
+	private JButton btnVender;
+	private JButton btnModificarCocina;
+	private JButton btnConfig;
+	private JMenuItem menuArchivoSalir;
 	private JMenuItem mntmNewMenuItem_1;
-	private JMenuItem mntmNewMenuItem_2;
-	private JMenuItem mntmNewMenuItem_3;
-	private JMenuItem mntmNewMenuItem_4;
+	private JMenuItem menuMantVerCocina;
+	private JMenuItem menuMantModificarCocina;
+	private JMenuItem menuVentasVender;
 	private JMenuItem mntmNewMenuItem_5;
 	private JMenuItem mntmNewMenuItem_6;
 	private JMenuItem mntmNewMenuItem_7;
@@ -114,6 +79,7 @@ public class Tienda extends JFrame implements ActionListener {
 	 * Create the frame.
 	 */
 	public Tienda() {
+		setResizable(false);
 		setTitle("SharpGas - Tienda");
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setBounds(100, 100, 815, 598);
@@ -124,8 +90,9 @@ public class Tienda extends JFrame implements ActionListener {
 		mnNewMenu = new JMenu("Archivo");
 		menuBar.add(mnNewMenu);
 		
-		mntmNewMenuItem = new JMenuItem("Salir");
-		mnNewMenu.add(mntmNewMenuItem);
+		menuArchivoSalir = new JMenuItem("Salir");
+		menuArchivoSalir.addActionListener(this);
+		mnNewMenu.add(menuArchivoSalir);
 		
 		mnNewMenu_1 = new JMenu("Mantenimiento");
 		menuBar.add(mnNewMenu_1);
@@ -133,17 +100,20 @@ public class Tienda extends JFrame implements ActionListener {
 		mntmNewMenuItem_1 = new JMenuItem("Listar Cocinas");
 		mnNewMenu_1.add(mntmNewMenuItem_1);
 		
-		mntmNewMenuItem_2 = new JMenuItem("Ver Cocina");
-		mnNewMenu_1.add(mntmNewMenuItem_2);
+		menuMantVerCocina = new JMenuItem("Ver Cocina");
+		menuMantVerCocina.addActionListener(this);
+		mnNewMenu_1.add(menuMantVerCocina);
 		
-		mntmNewMenuItem_3 = new JMenuItem("Modificar Cocina");
-		mnNewMenu_1.add(mntmNewMenuItem_3);
+		menuMantModificarCocina = new JMenuItem("Modificar Cocina");
+		menuMantModificarCocina.addActionListener(this);
+		mnNewMenu_1.add(menuMantModificarCocina);
 		
 		mnNewMenu_2 = new JMenu("Ventas");
 		menuBar.add(mnNewMenu_2);
 		
-		mntmNewMenuItem_4 = new JMenuItem("Vender");
-		mnNewMenu_2.add(mntmNewMenuItem_4);
+		menuVentasVender = new JMenuItem("Vender");
+		menuVentasVender.addActionListener(this);
+		mnNewMenu_2.add(menuVentasVender);
 		
 		mntmNewMenuItem_5 = new JMenuItem("Generar Reportes");
 		mnNewMenu_2.add(mntmNewMenuItem_5);
@@ -190,30 +160,104 @@ public class Tienda extends JFrame implements ActionListener {
 		contentPane.add(panel_1);
 		panel_1.setLayout(new GridLayout(2, 3, 10, 10));
 		
-		btnNewButton = new JButton("Listar Cocinas");
-		btnNewButton.setBounds(new Rectangle(0, 0, 100, 0));
-		panel_1.add(btnNewButton);
+		btnListarCocinas = new JButton("Listar Cocinas");
+		btnListarCocinas.addActionListener(this);
+		btnListarCocinas.setBounds(new Rectangle(0, 0, 100, 0));
+		panel_1.add(btnListarCocinas);
 		
-		btnNewButton_1 = new JButton("Ver Cocina");
-		panel_1.add(btnNewButton_1);
+		btnVerCocina = new JButton("Ver Cocina");
+		btnVerCocina.addActionListener(this);
+		panel_1.add(btnVerCocina);
 		
-		btnNewButton_4 = new JButton("Modificar Cocina");
-		panel_1.add(btnNewButton_4);
+		btnModificarCocina = new JButton("Modificar Cocina");
+		btnModificarCocina.addActionListener(this);
+		panel_1.add(btnModificarCocina);
 		
-		btnNewButton_3 = new JButton("Vender");
-		panel_1.add(btnNewButton_3);
+		btnVender = new JButton("Vender");
+		btnVender.addActionListener(this);
+		panel_1.add(btnVender);
 		
-		btnNewButton_2 = new JButton("Generar Reporte");
-		panel_1.add(btnNewButton_2);
+		btnGenerarReporte = new JButton("Generar Reporte");
+		panel_1.add(btnGenerarReporte);
 		
-		btnNewButton_5 = new JButton("Configuracion");
-		panel_1.add(btnNewButton_5);
+		btnConfig = new JButton("Configuracion");
+		panel_1.add(btnConfig);
 		
 		
 		
 	}
 
 	public void actionPerformed(ActionEvent e) {
+		if (e.getSource() == menuVentasVender) {
+			actionPerformedMenuVentasVender(e);
+		}
+		if (e.getSource() == btnVender) {
+			actionPerformedBtnVender(e);
+		}
+		if (e.getSource() == menuArchivoSalir) {
+			actionPerformedMenuArchivoSalir(e);
+		}
+		if (e.getSource() == menuMantModificarCocina) {
+			actionPerformedMenuMantModificarCocina(e);
+		}
+		if (e.getSource() == menuMantVerCocina) {
+			actionPerformedMenuMantVerCocina(e);
+		}
+		if (e.getSource() == btnVerCocina) {
+			actionPerformedBtnVerCocina(e);
+		}
+		if (e.getSource() == btnModificarCocina) {
+			actionPerformedBtnModificarCocina(e);
+		}
+		if (e.getSource() == btnListarCocinas) {
+			actionPerformedBtnListarCocinas(e);
+		}
 		
+	}
+	
+//	-------------------------------------
+//	Ventanas
+
+//		Mantenimiento
+	DialogModificarCocina ventanaModificarCocina = new DialogModificarCocina();
+	DialogVerCocina ventanaVerCocina = new DialogVerCocina();
+	DialogVenderCocina ventanaVender = new DialogVenderCocina();
+	DialogListarCocinas ventanaListar = new DialogListarCocinas();
+	
+//	-----------------------------
+//	Botones del programa
+//		Mantenimiento
+	protected void actionPerformedBtnListarCocinas(ActionEvent e) {
+		ventanaListar.abrirVentana();
+	}
+	protected void actionPerformedBtnModificarCocina(ActionEvent e) {
+		ventanaModificarCocina.abrirVentana();
+	}
+	protected void actionPerformedBtnVerCocina(ActionEvent e) {
+		ventanaVerCocina.abrirVentana();
+	}
+	protected void actionPerformedBtnVender(ActionEvent e) {
+		ventanaVender.abrirVentana();
+	}
+		
+	
+//	------------------------------------
+	
+//	Menu Superior
+
+//		Archivo
+	protected void actionPerformedMenuArchivoSalir(ActionEvent e) {
+		System.exit(0);
+	}
+	
+//		Mantenimiento
+	protected void actionPerformedMenuMantVerCocina(ActionEvent e) {
+		ventanaVerCocina.abrirVentana();
+	}
+	protected void actionPerformedMenuMantModificarCocina(ActionEvent e) {
+		ventanaModificarCocina.abrirVentana();
+	}
+	protected void actionPerformedMenuVentasVender(ActionEvent e) {
+		ventanaVender.abrirVentana();
 	}
 }
