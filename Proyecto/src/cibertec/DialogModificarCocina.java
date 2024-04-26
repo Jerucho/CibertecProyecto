@@ -30,7 +30,7 @@ public class DialogModificarCocina extends JDialog implements ActionListener {
 	private JLabel lblAltocm;
 	private JLabel lblFondocm;
 	private JLabel lblQuemadores;
-	private JComboBox cboModificarCocina;
+	private JComboBox<Object> cboModificarCocina;
 	private JPanel panel;
 	private JTextField txtModificarPrecio;
 	private JTextField txtModificarAncho;
@@ -102,11 +102,11 @@ public class DialogModificarCocina extends JDialog implements ActionListener {
 		panel.add(lblNewLabel);
 		lblNewLabel.setFont(new Font("Tahoma", Font.BOLD, 14));
 		
-		cboModificarCocina = new JComboBox();
+		cboModificarCocina = new JComboBox<Object>();
 		cboModificarCocina.setBorder(new SoftBevelBorder(BevelBorder.LOWERED, null, null, null, null));
 		cboModificarCocina.setBackground(new Color(255, 255, 255));
 		cboModificarCocina.addActionListener(this);
-		cboModificarCocina.setModel(new DefaultComboBoxModel(new String[] {Main.modelo0, Main.modelo1, Main.modelo2, Main.modelo3, Main.modelo4}));
+		cboModificarCocina.setModel(new DefaultComboBoxModel<Object>(new String[] {Main.modelo0, Main.modelo1, Main.modelo2, Main.modelo3, Main.modelo4}));
 		panel.add(cboModificarCocina);
 		
 		lblPrecio = new JLabel("Precio (S/)");
@@ -288,7 +288,7 @@ public class DialogModificarCocina extends JDialog implements ActionListener {
 
 	        // Validar que los valores sean positivos
 	        if (precioModificado <= 0 || anchoModificado <= 0 || altoModificado <= 0 || fondoModificado <= 0 || quemadoresModificado <= 0) {
-	            // Mostrar un mensaje de error o realizar alguna acción
+	            // Mostrar un mensaje de error o realizar alguna acciï¿½n
 	            // Por ejemplo:
 	        	JOptionPane.showMessageDialog(this, "Los valores deben ser positivos");
 	            return false;
@@ -297,10 +297,10 @@ public class DialogModificarCocina extends JDialog implements ActionListener {
 	        // Si todas las validaciones pasan, retornar true
 	        return true;
 	    } catch (NumberFormatException e) {
-	        // Capturar excepción si el formato de entrada no es válido (por ejemplo, si se ingresan letras en lugar de números)
-	        // Mostrar un mensaje de error o realizar alguna acción
+	        // Capturar excepciï¿½n si el formato de entrada no es vï¿½lido (por ejemplo, si se ingresan letras en lugar de nï¿½meros)
+	        // Mostrar un mensaje de error o realizar alguna acciï¿½n
 	        // Por ejemplo:
-	    	JOptionPane.showMessageDialog(this, "Tipo de dato incorrecto, ingrese números reales");
+	    	JOptionPane.showMessageDialog(this, "Tipo de dato incorrecto, ingrese nï¿½meros reales");
 	        return false;
 	    }
 	}

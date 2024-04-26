@@ -5,9 +5,11 @@ import java.awt.EventQueue;
 import java.awt.Font;
 import java.awt.GridLayout;
 import java.awt.Rectangle;
+import java.awt.Toolkit;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
+import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
@@ -15,7 +17,9 @@ import javax.swing.JMenu;
 import javax.swing.JMenuBar;
 import javax.swing.JMenuItem;
 import javax.swing.JPanel;
+import javax.swing.SwingConstants;
 import javax.swing.UIManager;
+import javax.swing.border.CompoundBorder;
 import javax.swing.border.EmptyBorder;
 
 public class Tienda extends JFrame implements ActionListener {
@@ -43,11 +47,11 @@ public class Tienda extends JFrame implements ActionListener {
 	private JMenuItem menuMantVerCocina;
 	private JMenuItem menuMantModificarCocina;
 	private JMenuItem menuVentasVender;
-	private JMenuItem mntmNewMenuItem_5;
-	private JMenuItem mntmNewMenuItem_6;
-	private JMenuItem mntmNewMenuItem_7;
+	private JMenuItem menuVentasGenerarReporte;
+	private JMenuItem menuConfigDescuentos;
+	private JMenuItem menuConfigObsequios;
 	private JMenuItem mntmNewMenuItem_8;
-	private JMenuItem mntmNewMenuItem_9;
+	private JMenuItem menuConfigCuotaDiaria;
 	private JMenuItem mntmNewMenuItem_10;
 
 	/**
@@ -79,6 +83,7 @@ public class Tienda extends JFrame implements ActionListener {
 	 * Create the frame.
 	 */
 	public Tienda() {
+		setIconImage(Toolkit.getDefaultToolkit().getImage(Tienda.class.getResource("/imagenes/nuevoTamano.png")));
 		setResizable(false);
 		setTitle("SharpGas - Tienda");
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
@@ -115,23 +120,27 @@ public class Tienda extends JFrame implements ActionListener {
 		menuVentasVender.addActionListener(this);
 		mnNewMenu_2.add(menuVentasVender);
 		
-		mntmNewMenuItem_5 = new JMenuItem("Generar Reportes");
-		mnNewMenu_2.add(mntmNewMenuItem_5);
+		menuVentasGenerarReporte = new JMenuItem("Generar Reportes");
+		menuVentasGenerarReporte.addActionListener(this);
+		mnNewMenu_2.add(menuVentasGenerarReporte);
 		
 		mnNewMenu_3 = new JMenu("Configuracion");
 		menuBar.add(mnNewMenu_3);
 		
-		mntmNewMenuItem_6 = new JMenuItem("Configurar Descuentos");
-		mnNewMenu_3.add(mntmNewMenuItem_6);
+		menuConfigDescuentos = new JMenuItem("Configurar Descuentos");
+		menuConfigDescuentos.addActionListener(this);
+		mnNewMenu_3.add(menuConfigDescuentos);
 		
-		mntmNewMenuItem_7 = new JMenuItem("Configurar Obsequio");
-		mnNewMenu_3.add(mntmNewMenuItem_7);
+		menuConfigObsequios = new JMenuItem("Configurar Obsequio");
+		menuConfigObsequios.addActionListener(this);
+		mnNewMenu_3.add(menuConfigObsequios);
 		
 		mntmNewMenuItem_8 = new JMenuItem("Configurar Cantidad Optima");
 		mnNewMenu_3.add(mntmNewMenuItem_8);
 		
-		mntmNewMenuItem_9 = new JMenuItem("Configurar Cuota Diaria");
-		mnNewMenu_3.add(mntmNewMenuItem_9);
+		menuConfigCuotaDiaria = new JMenuItem("Configurar Cuota Diaria");
+		menuConfigCuotaDiaria.addActionListener(this);
+		mnNewMenu_3.add(menuConfigCuotaDiaria);
 		
 		mnNewMenu_4 = new JMenu("Ayuda");
 		menuBar.add(mnNewMenu_4);
@@ -156,31 +165,77 @@ public class Tienda extends JFrame implements ActionListener {
 		panel.add(lblNewLabel);
 		
 		panel_1 = new JPanel();
-		panel_1.setBounds(82, 163, 635, 323);
+		panel_1.setBounds(121, 163, 557, 323);
 		contentPane.add(panel_1);
 		panel_1.setLayout(new GridLayout(2, 3, 10, 10));
 		
 		btnListarCocinas = new JButton("Listar Cocinas");
+		btnListarCocinas.setFocusable(false);
+		btnListarCocinas.setForeground(new Color(0, 0, 0));
+		btnListarCocinas.setVerticalTextPosition(SwingConstants.BOTTOM);
+		btnListarCocinas.setHideActionText(true);
+		btnListarCocinas.setHorizontalTextPosition(SwingConstants.CENTER);
+		btnListarCocinas.setIconTextGap(20);
+		btnListarCocinas.setIcon(new ImageIcon(Tienda.class.getResource("/imagenes/icons8-cocina-50.png")));
+		btnListarCocinas.setFont(new Font("Microsoft Tai Le", Font.BOLD, 15));
+		btnListarCocinas.setBorder(new CompoundBorder());
 		btnListarCocinas.addActionListener(this);
 		btnListarCocinas.setBounds(new Rectangle(0, 0, 100, 0));
 		panel_1.add(btnListarCocinas);
 		
 		btnVerCocina = new JButton("Ver Cocina");
+		btnVerCocina.setForeground(new Color(0, 0, 0));
+		btnVerCocina.setIconTextGap(20);
+		btnVerCocina.setIcon(new ImageIcon(Tienda.class.getResource("/imagenes/icons8-escudo-de-pregunta-50.png")));
+		btnVerCocina.setHorizontalTextPosition(SwingConstants.CENTER);
+		btnVerCocina.setVerticalTextPosition(SwingConstants.BOTTOM);
+		btnVerCocina.setFont(new Font("Microsoft Tai Le", Font.BOLD, 15));
+		btnVerCocina.setBorder(new CompoundBorder());
 		btnVerCocina.addActionListener(this);
 		panel_1.add(btnVerCocina);
 		
 		btnModificarCocina = new JButton("Modificar Cocina");
+		btnModificarCocina.setForeground(new Color(0, 0, 0));
+		btnModificarCocina.setIcon(new ImageIcon(Tienda.class.getResource("/imagenes/icons8-editar-50.png")));
+		btnModificarCocina.setIconTextGap(20);
+		btnModificarCocina.setHorizontalTextPosition(SwingConstants.CENTER);
+		btnModificarCocina.setVerticalTextPosition(SwingConstants.BOTTOM);
+		btnModificarCocina.setFont(new Font("Microsoft Tai Le", Font.BOLD, 15));
+		btnModificarCocina.setBorder(new CompoundBorder());
 		btnModificarCocina.addActionListener(this);
 		panel_1.add(btnModificarCocina);
 		
 		btnVender = new JButton("Vender");
+		btnVender.setForeground(new Color(0, 0, 0));
+		btnVender.setIcon(new ImageIcon(Tienda.class.getResource("/imagenes/icons8-vender-50.png")));
+		btnVender.setIconTextGap(20);
+		btnVender.setHorizontalTextPosition(SwingConstants.CENTER);
+		btnVender.setVerticalTextPosition(SwingConstants.BOTTOM);
+		btnVender.setFont(new Font("Microsoft Tai Le", Font.BOLD, 15));
+		btnVender.setBorder(new CompoundBorder());
 		btnVender.addActionListener(this);
 		panel_1.add(btnVender);
 		
-		btnGenerarReporte = new JButton("Generar Reporte");
+		btnGenerarReporte = new JButton("Generar Reportes");
+		btnGenerarReporte.setForeground(new Color(0, 0, 0));
+		btnGenerarReporte
+				.setIcon(new ImageIcon(Tienda.class.getResource("/imagenes/icons8-informe-gr\u00E1fico-50.png")));
+		btnGenerarReporte.setIconTextGap(20);
+		btnGenerarReporte.setHorizontalTextPosition(SwingConstants.CENTER);
+		btnGenerarReporte.setVerticalTextPosition(SwingConstants.BOTTOM);
+		btnGenerarReporte.setFont(new Font("Microsoft Tai Le", Font.BOLD, 15));
+		btnGenerarReporte.setBorder(new CompoundBorder());
+		btnGenerarReporte.addActionListener(this);
 		panel_1.add(btnGenerarReporte);
 		
 		btnConfig = new JButton("Configuracion");
+		btnConfig.setForeground(new Color(0, 0, 0));
+		btnConfig.setIcon(new ImageIcon(Tienda.class.getResource("/imagenes/icons8-servicios-50.png")));
+		btnConfig.setIconTextGap(20);
+		btnConfig.setHorizontalTextPosition(SwingConstants.CENTER);
+		btnConfig.setVerticalTextPosition(SwingConstants.BOTTOM);
+		btnConfig.setFont(new Font("Microsoft Tai Le", Font.BOLD, 15));
+		btnConfig.setBorder(new CompoundBorder());
 		panel_1.add(btnConfig);
 		
 		
@@ -188,6 +243,21 @@ public class Tienda extends JFrame implements ActionListener {
 	}
 
 	public void actionPerformed(ActionEvent e) {
+		if (e.getSource() == menuConfigCuotaDiaria) {
+			actionPerformedMenuConfigCuotaDiaria(e);
+		}
+		if (e.getSource() == menuConfigObsequios) {
+			actionPerformedMenuConfigObsequios(e);
+		}
+		if (e.getSource() == menuConfigDescuentos) {
+			actionPerformedMenuConfigDescuentos(e);
+		}
+		if (e.getSource() == menuVentasGenerarReporte) {
+			actionPerformedMenuVentasGenerarReporte(e);
+		}
+		if (e.getSource() == btnGenerarReporte) {
+			actionPerformedBtnGenerarReporte(e);
+		}
 		if (e.getSource() == menuVentasVender) {
 			actionPerformedMenuVentasVender(e);
 		}
@@ -216,13 +286,22 @@ public class Tienda extends JFrame implements ActionListener {
 	}
 	
 //	-------------------------------------
-//	Ventanas
+//	Ventanas Declaracion
 
 //		Mantenimiento
 	DialogModificarCocina ventanaModificarCocina = new DialogModificarCocina();
 	DialogVerCocina ventanaVerCocina = new DialogVerCocina();
 	DialogVenderCocina ventanaVender = new DialogVenderCocina();
 	DialogListarCocinas ventanaListar = new DialogListarCocinas();
+	
+	
+//		Ventas
+	DialogGenerarReporte ventanaGenerarReporte = new DialogGenerarReporte();
+	
+//		Configurar
+	ConfigurarDescuentos ventanaConfigurarDescuentos = new ConfigurarDescuentos();
+	ConfigurarObsequios ventanaConfigurarObsequios = new ConfigurarObsequios();
+	ConfigurarCuotaDiaria ventanaConfiguraraCuotaDiaria = new ConfigurarCuotaDiaria(); 
 	
 //	-----------------------------
 //	Botones del programa
@@ -236,10 +315,18 @@ public class Tienda extends JFrame implements ActionListener {
 	protected void actionPerformedBtnVerCocina(ActionEvent e) {
 		ventanaVerCocina.abrirVentana();
 	}
+
+//		Venta
 	protected void actionPerformedBtnVender(ActionEvent e) {
 		ventanaVender.abrirVentana();
 	}
-		
+
+	protected void actionPerformedBtnGenerarReporte(ActionEvent e) {
+		ventanaGenerarReporte.abrirVentana();
+	}
+
+//		Configuracion
+	
 	
 //	------------------------------------
 	
@@ -259,5 +346,20 @@ public class Tienda extends JFrame implements ActionListener {
 	}
 	protected void actionPerformedMenuVentasVender(ActionEvent e) {
 		ventanaVender.abrirVentana();
+	}
+
+	protected void actionPerformedMenuVentasGenerarReporte(ActionEvent e) {
+		ventanaGenerarReporte.abrirVentana();
+	}
+//		Configuracion
+	
+	protected void actionPerformedMenuConfigDescuentos(ActionEvent e) {
+		ventanaConfigurarDescuentos.abrirVentana();
+	}
+	protected void actionPerformedMenuConfigObsequios(ActionEvent e) {
+		ventanaConfigurarObsequios.abrirVentana();
+	}
+	protected void actionPerformedMenuConfigCuotaDiaria(ActionEvent e) {
+		ventanaConfiguraraCuotaDiaria.abrirVentana();
 	}
 }

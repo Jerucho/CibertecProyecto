@@ -3,6 +3,7 @@ package cibertec;
 import java.awt.BorderLayout;
 import java.awt.Color;
 import java.awt.Font;
+import java.awt.Toolkit;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
@@ -12,6 +13,7 @@ import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.JTextArea;
 import javax.swing.border.EmptyBorder;
+import javax.swing.border.TitledBorder;
 
 public class DialogListarCocinas extends JDialog implements ActionListener {
 
@@ -42,6 +44,8 @@ public class DialogListarCocinas extends JDialog implements ActionListener {
 	 * Create the dialog.
 	 */
 	public DialogListarCocinas() {
+		setIconImage(Toolkit.getDefaultToolkit()
+				.getImage(DialogListarCocinas.class.getResource("/imagenes/nuevoTamano.png")));
 		setTitle("Listar Cocinas");
 		setDefaultCloseOperation(JDialog.DISPOSE_ON_CLOSE);
 		setBounds(100, 100, 690, 425);
@@ -51,6 +55,8 @@ public class DialogListarCocinas extends JDialog implements ActionListener {
 		contentPanel.setLayout(null);
 		
 		scrollPane = new JScrollPane();
+		scrollPane.setBorder(
+				new TitledBorder(null, "Listado de Cocinas", TitledBorder.LEADING, TitledBorder.TOP, null, null));
 		scrollPane.setBounds(10, 11, 654, 280);
 		contentPanel.add(scrollPane);
 		
@@ -59,18 +65,21 @@ public class DialogListarCocinas extends JDialog implements ActionListener {
 		scrollPane.setViewportView(txtS);
 		
 		panel = new JPanel();
-		panel.setBackground(new Color(0, 128, 192));
+		panel.setBackground(new Color(255, 255, 255));
 		panel.setBounds(0, 309, 674, 77);
 		contentPanel.add(panel);
 		panel.setLayout(null);
 
 		panel_1 = new JPanel();
-		panel_1.setBackground(new Color(0, 128, 192));
+		panel_1.setBackground(new Color(255, 255, 255));
 		panel_1.setBounds(207, 15, 260, 47);
 		panel.add(panel_1);
 		panel_1.setLayout(null);
 		
 		btnCerrar = new JButton("Cerrar");
+		btnCerrar.setFont(new Font("Tahoma", Font.BOLD, 11));
+		btnCerrar.setForeground(new Color(255, 255, 255));
+		btnCerrar.setBackground(new Color(255, 128, 128));
 		btnCerrar.setBorder(null);
 		btnCerrar.setBounds(141, 6, 118, 34);
 		panel_1.add(btnCerrar);
@@ -84,6 +93,7 @@ public class DialogListarCocinas extends JDialog implements ActionListener {
 		panel_1.add(btnNewButton);
 		btnNewButton.addActionListener(this);
 		btnCerrar.addActionListener(this);
+		
 		
 		
 		listarCocinas();
@@ -126,6 +136,8 @@ public class DialogListarCocinas extends JDialog implements ActionListener {
 		txtS.append("Alto               : " + Main.alto4 + " cm" + "\n");
 		txtS.append("Quemadores	   : " + Main.quemadores4);
 
+//		Empezar desde el principio
+		txtS.setCaretPosition(0);
 	}
 
 	public void actionPerformed(ActionEvent e) {

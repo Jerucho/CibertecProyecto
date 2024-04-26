@@ -12,23 +12,28 @@ import javax.swing.JComboBox;
 import javax.swing.JDialog;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
+import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.JTextArea;
 import javax.swing.JTextField;
 import javax.swing.border.EmptyBorder;
+import javax.swing.border.TitledBorder;
 
 public class DialogVenderCocina extends JDialog implements ActionListener {
 
+	double precio, impCompra, impDes, impPag;
+	int cantidad, modeloSeleccionado;
+	String obs, modelo;
+
 	private static final long serialVersionUID = 1L;
-	private final JPanel contentPanel = new JPanel();
 	private JPanel contentPane;
 	private JLabel lblNewLabel;
 	private JLabel lblPrecio;
 	private JLabel lblcantidadidad;
-	private JComboBox cboModelo;
+	private JComboBox<Object> cboModelo;
 	private JTextField txtVenderPrecio;
-	private JTextField txtVendercantidadidad;
+	private JTextField txtVenderCantidad;
 	private JPanel panel;
 	private JScrollPane scrollPane;
 	private JTextArea txtS;
@@ -67,6 +72,7 @@ public class DialogVenderCocina extends JDialog implements ActionListener {
 		contentPane.setLayout(null);
 		
 		scrollPane = new JScrollPane();
+		scrollPane.setBorder(new TitledBorder(null, "Boleta de Venta", TitledBorder.LEADING, TitledBorder.TOP, null, null));
 		scrollPane.setBounds(28, 199, 523, 207);
 		contentPane.add(scrollPane);
 		
@@ -92,9 +98,10 @@ public class DialogVenderCocina extends JDialog implements ActionListener {
 		lblNewLabel.setForeground(new Color(255, 255, 255));
 		panel.add(lblNewLabel);
 		
-		cboModelo = new JComboBox();
+		cboModelo = new JComboBox<Object>();
 		cboModelo.addActionListener(this);
-		cboModelo.setModel(new DefaultComboBoxModel(new String[] {"Mabe EMP6120PG0", "Indurama Parma", "Sole COSOL027", "Coldex CX602", "Reco Dakota"}));
+		cboModelo.setModel(new DefaultComboBoxModel<Object>(
+				new String[] { Main.modelo0, Main.modelo1, Main.modelo2, Main.modelo3, Main.modelo4 }));
 		panel.add(cboModelo);
 		
 		lblPrecio = new JLabel("Precio (S/)");
@@ -113,9 +120,9 @@ public class DialogVenderCocina extends JDialog implements ActionListener {
 		lblcantidadidad.setForeground(new Color(255, 255, 255));
 		panel.add(lblcantidadidad);
 		
-		txtVendercantidadidad = new JTextField();
-		panel.add(txtVendercantidadidad);
-		txtVendercantidadidad.setColumns(10);
+		txtVenderCantidad = new JTextField();
+		panel.add(txtVenderCantidad);
+		txtVenderCantidad.setColumns(10);
 		
 		panel_2 = new JPanel();
 		panel_2.setBackground(new Color(0, 128, 192));
@@ -155,82 +162,32 @@ public class DialogVenderCocina extends JDialog implements ActionListener {
 	}
 	protected void actionPerformedBtnVender(ActionEvent e) {
 		
-        //Declaracion de variables
-		double precio = 0, impCompra = 0, impDes = 0, impPag;
-		int cantidad, modeloSeleccionado = 0;
-		String obs = null, modelo;
-
-		// Lectura de datos
-		modeloSeleccionado = cboModelo.getSelectedIndex();
-		modelo = cboModelo.getSelectedItem().toString();
-		cantidad = Integer.parseInt(txtVendercantidadidad.getText());
-
-		// Precios
-
-		switch (modeloSeleccionado) {
-		case 0:
-			precio = Main.precio0;
-			impCompra = Main.precio0 * cantidad;
-			break;
-		case 1:
-			precio = Main.precio1;
-			impCompra = Main.precio1 * cantidad;
-			break;
-		case 2:
-			precio = Main.precio2;
-			impCompra = Main.precio2 * cantidad;
-			break;
-		case 3:
-			precio = Main.precio3;
-			impCompra = Main.precio3 * cantidad;
-			break;
-		case 4:
-			precio = Main.precio4;
-			impCompra = Main.precio4 * cantidad;
-			break;
-
-		default:
-			break;
-		}
-
-		// Importe de Descuento
-		if (cantidad > 1 && cantidad <= 5)
-			impDes = impCompra * 0.075;
-
-		else if (cantidad > 5 && cantidad <= 10)
-			impDes = impCompra * 0.10;
-
-		else if (cantidad > 10 && cantidad <= 15)
-			impDes = impCompra * 0.125;
-
-		else if (cantidad > 15)
-			impDes = impCompra * 0.15;
-
-		// Importe a Pagar
-		impPag = impCompra - impDes;
-
-		// Obsequio por la cantidadidad
-		if (cantidad == 1)
-			obs = "Cafetera";
-		else if (cantidad >= 2 && cantidad <= 5)
-			obs = "Licuadora";
-		if (cantidad > 5)
-			obs = "Extractor";
-
-
-		// salida de resultados
-		txtS.setText("BOLETA DE VENTAS" + "\n");
-		txtS.append("Modelo                          : " + modelo + "\n");
-		txtS.append("Precio                          : S/ " + precio + "\n");
-		txtS.append("Cantidad 	                : " + cantidad + "\n");
-		txtS.append("Importe Compra                  : S/ " + impCompra + "\n");
-		txtS.append("Importe Descuento               : S/ " + impDes + "\n");
-		txtS.append("Importe Pagar                   : S/ " + impPag + "\n");
-		txtS.append("Obsequio                        : " + obs);
+//		Si la entrada es valida, ejecutar la venta
+		if (entradaDatos()) {
+			// Precios
+			impCompra = generarImpCompra(modeloSeleccionado, cantidad);
+	
+			// Importe de Descuento
+			impDes = generarImpDescto(cantidad, impCompra);
+	
+			// Importe a Pagar
+			impPag = generarImpPagar(impCompra, impDes);
+	
+			// Obsequio por la cantidad
+			obs = generarObsequio(cantidad);
+	
+			// salida de resultados
+			salidaDatos();
+		}else mostrarError();
 
 	}
 		
-
+	public void mostrarError() {
+		JOptionPane.showMessageDialog(this, "Cantidad invalida, revisa de nuevo"); 
+		txtVenderCantidad.setText("");
+		txtVenderCantidad.requestFocus();
+	}
+	
 	protected void actionPerformedCboModelo(ActionEvent e) {
 		int modeloSeleccionado = cboModelo.getSelectedIndex();
 
@@ -256,6 +213,91 @@ public class DialogVenderCocina extends JDialog implements ActionListener {
 			break;
 		}
 
+	}
+
+	public boolean entradaDatos() {
+		// Lectura de datos
+		try {
+			modeloSeleccionado = cboModelo.getSelectedIndex();
+			modelo = cboModelo.getSelectedItem().toString();
+			
+			cantidad = Integer.parseInt(txtVenderCantidad.getText());
+		
+//			Comprobar si la cantidad es un numero positivo
+			if (cantidad > 0) return true;
+			
+		} catch (NumberFormatException e) {
+			return false;		
+		}
+		
+		return false;
+		
+	}
+
+	public double generarImpDescto(int cantidad, double impCompra) {
+		if (cantidad > 1 && cantidad <= 5)
+			return impCompra * 0.075;
+
+		else if (cantidad > 5 && cantidad <= 10)
+			return impCompra * 0.10;
+
+		else if (cantidad > 10 && cantidad <= 15)
+			return impCompra * 0.125;
+
+		else if (cantidad > 15)
+			return impCompra * 0.15;
+
+		return 0;
+	}
+
+	public double generarImpCompra(int modeloSeleccionado, int cantidad) {
+
+		switch (modeloSeleccionado) {
+		case 0:
+			precio = Main.precio0;
+			return Main.precio0 * cantidad;
+		case 1:
+			precio = Main.precio1;
+			return Main.precio1 * cantidad;
+		case 2:
+			precio = Main.precio2;
+			return Main.precio2 * cantidad;
+		case 3:
+			precio = Main.precio3;
+			return Main.precio3 * cantidad;
+		case 4:
+			precio = Main.precio4;
+			return Main.precio4 * cantidad;
+
+		default:
+			break;
+		}
+		return 0;
+	}
+
+	public double generarImpPagar(double impCompra, double impDes) {
+		return impCompra - impDes;
+	}
+
+	public String generarObsequio(int cantidad) {
+		if (cantidad == 1)
+			return "Cafetera";
+		else if (cantidad >= 2 && cantidad <= 5)
+			return "Licuadora";
+		if (cantidad > 5)
+			return "Extractor";
+		return "";
+	}
+
+	public void salidaDatos() {
+		txtS.setText("BOLETA DE VENTAS" + "\n");
+		txtS.append("Modelo                          : " + modelo + "\n");
+		txtS.append("Precio                          : S/ " + precio + "\n");
+		txtS.append("Cantidad 	                : " + cantidad + "\n");
+		txtS.append("Importe Compra                  : S/ " + impCompra + "\n");
+		txtS.append("Importe Descuento               : S/ " + impDes + "\n");
+		txtS.append("Importe Pagar                   : S/ " + impPag + "\n");
+		txtS.append("Obsequio                        : " + obs);
 	}
 
 	protected void actionPerformedBtnCerrar(ActionEvent e) {

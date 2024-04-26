@@ -150,7 +150,7 @@ public class DialogVerCocina extends JDialog implements ActionListener{
 		btnCerrarVentana.setForeground(new Color(255, 255, 255));
 		btnCerrarVentana.setBackground(new Color(234, 85, 85));
 		btnCerrarVentana.addActionListener(this);
-		btnCerrarVentana.setBounds(394, 287, 152, 37);
+		btnCerrarVentana.setBounds(366, 287, 152, 37);
 		contentPane.add(btnCerrarVentana);
 		
 		
@@ -162,9 +162,9 @@ public class DialogVerCocina extends JDialog implements ActionListener{
 		contentPane.add(panel_1);
 		
 		lblModeloCocina = new JLabel("");
-		lblModeloCocina.setHorizontalAlignment(SwingConstants.RIGHT);
+		lblModeloCocina.setHorizontalAlignment(SwingConstants.LEFT);
 		lblModeloCocina.setFont(new Font("Tahoma", Font.BOLD, 25));
-		lblModeloCocina.setBounds(233, 56, 264, 54);
+		lblModeloCocina.setBounds(254, 59, 264, 54);
 		contentPane.add(lblModeloCocina);
 		
 		txtModificarPrecio.setText(String.valueOf(Main.precio0));
