@@ -1,13 +1,18 @@
-package cibertec;
+package configuracion;
 
 import java.awt.BorderLayout;
 import javax.swing.JButton;
 import javax.swing.JDialog;
 import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
+
+import cibertec.Main;
+
 import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
 import javax.swing.JLabel;
+import javax.swing.JOptionPane;
+
 import java.awt.Font;
 import javax.swing.JTextField;
 
@@ -32,6 +37,7 @@ public class ConfigurarDescuentos extends JDialog implements ActionListener {
 	public void abrirVentana() {
 		try {
 			ConfigurarDescuentos dialog = new ConfigurarDescuentos();
+			dialog.setLocationRelativeTo(null);
 			dialog.setDefaultCloseOperation(JDialog.DISPOSE_ON_CLOSE);
 			dialog.setVisible(true);
 		} catch (Exception e) {
@@ -120,8 +126,49 @@ public class ConfigurarDescuentos extends JDialog implements ActionListener {
 	protected void actionPerformedBtnCerrar(ActionEvent e) {
 		dispose();
 	}
-	protected void actionPerformedBtnConfirmar(ActionEvent e) {
+	
+	double desc1, desc2, desc3, desc4;
+	
+	public void entradaDatos() {
+		
+		desc1 = Double.parseDouble(txtDes1.getText());
+		desc2 = Double.parseDouble(txtDes2.getText());
+		desc3 = Double.parseDouble(txtDes3.getText());
+		desc4 = Double.parseDouble(txtDes4.getText());
 
+	}
+	
+	protected void actionPerformedBtnConfirmar(ActionEvent e) {
+//		Declaracion de variables
+
+		try {
+			
+			if (desc1 <= 0 || desc2 <= 0 || desc3 <= 0 || desc4 <= 0) {
+
+				JOptionPane.showMessageDialog(this, "Descuentos invalido");
+				txtDes1.setText("" + Main.porcentaje1);
+				txtDes2.setText("" + Main.porcentaje2);
+				txtDes3.setText("" + Main.porcentaje3);
+				txtDes4.setText("" + Main.porcentaje4);
+
+			}
+			else {
+				Main.porcentaje1 = desc1;
+				Main.porcentaje2 = desc2;
+				Main.porcentaje3 = desc3;
+				Main.porcentaje4 = desc4;
+				
+				JOptionPane.showMessageDialog(this, "Descuentos actualizados");
+				dispose();
+			}
+
+			
+		} catch (NumberFormatException e1) {
+			JOptionPane.showMessageDialog(this, "Ingrese un descuento valido");
+			// TODO: handle exception
+		}
+				
+		
 		
 	}
 }

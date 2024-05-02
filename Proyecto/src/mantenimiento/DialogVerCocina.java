@@ -1,4 +1,4 @@
-package cibertec;
+package mantenimiento;
 
 import java.awt.Color;
 import java.awt.FlowLayout;
@@ -12,7 +12,6 @@ import javax.swing.JComboBox;
 import javax.swing.JDialog;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
-import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JTextField;
 import javax.swing.SwingConstants;
@@ -20,7 +19,9 @@ import javax.swing.border.BevelBorder;
 import javax.swing.border.EmptyBorder;
 import javax.swing.border.SoftBevelBorder;
 
-public class DialogModificarCocina extends JDialog implements ActionListener {
+import cibertec.Main;
+
+public class DialogVerCocina extends JDialog implements ActionListener{
 
 	private static final long serialVersionUID = 1L;
 	private JPanel contentPane;
@@ -30,27 +31,28 @@ public class DialogModificarCocina extends JDialog implements ActionListener {
 	private JLabel lblAltocm;
 	private JLabel lblFondocm;
 	private JLabel lblQuemadores;
-	private JComboBox<Object> cboModificarCocina;
+	private JComboBox cboModificarCocina;
 	private JPanel panel;
 	private JTextField txtModificarPrecio;
 	private JTextField txtModificarAncho;
 	private JTextField txtModificarAlto;
 	private JTextField txtModificarFondo;
 	private JTextField txtModificarQuemadores;
-	private JButton btnEnviarModificacion;
 	private JButton btnCerrarVentana;
 
 	public int indexModeloSeleccionado;
 	private JPanel panel_1;
 	private JLabel lblModeloCocina;
 	private JLabel lblModelo;
+
 	/**
 	 * Launch the application.
 	 */
 	public void abrirVentana() {
 		try {
-			DialogModificarCocina dialog = new DialogModificarCocina();
+			DialogVerCocina dialog = new DialogVerCocina();
 			dialog.setDefaultCloseOperation(JDialog.DISPOSE_ON_CLOSE);
+			dialog.setLocationRelativeTo(null);
 			dialog.setVisible(true);
 		}
 		catch (Exception e) {
@@ -61,9 +63,9 @@ public class DialogModificarCocina extends JDialog implements ActionListener {
 	/**
 	 * Create the dialog.
 	 */
-	public DialogModificarCocina() {
+	public DialogVerCocina() {
 		setResizable(false);
-		setTitle("Modificar Cocina");
+		setTitle("Ver Cocina");
 		setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
 		setBounds(100, 100, 572, 385);
 		contentPane = new JPanel();
@@ -71,24 +73,6 @@ public class DialogModificarCocina extends JDialog implements ActionListener {
 
 		setContentPane(contentPane);
 		contentPane.setLayout(null);
-		
-		btnEnviarModificacion = new JButton("Enviar");
-		btnEnviarModificacion.setFont(new Font("Tahoma", Font.BOLD, 11));
-		btnEnviarModificacion.setForeground(new Color(255, 255, 255));
-		btnEnviarModificacion.setBackground(new Color(88, 176, 0));
-		btnEnviarModificacion.setBorder(null);
-		btnEnviarModificacion.addActionListener(this);
-		
-		btnCerrarVentana = new JButton("Cerrar");
-		btnCerrarVentana.setBorder(null);
-		btnCerrarVentana.setFont(new Font("Tahoma", Font.BOLD, 11));
-		btnCerrarVentana.setForeground(new Color(255, 255, 255));
-		btnCerrarVentana.setBackground(new Color(234, 85, 85));
-		btnCerrarVentana.addActionListener(this);
-		btnCerrarVentana.setBounds(342, 82, 152, 37);
-		contentPane.add(btnCerrarVentana);
-		btnEnviarModificacion.setBounds(342, 33, 152, 37);
-		contentPane.add(btnEnviarModificacion);
 		
 		panel = new JPanel();
 		panel.setBackground(new Color(0, 128, 192));
@@ -102,11 +86,10 @@ public class DialogModificarCocina extends JDialog implements ActionListener {
 		panel.add(lblNewLabel);
 		lblNewLabel.setFont(new Font("Tahoma", Font.BOLD, 14));
 		
-		cboModificarCocina = new JComboBox<Object>();
+		cboModificarCocina = new JComboBox();
 		cboModificarCocina.setBorder(new SoftBevelBorder(BevelBorder.LOWERED, null, null, null, null));
-		cboModificarCocina.setBackground(new Color(255, 255, 255));
 		cboModificarCocina.addActionListener(this);
-		cboModificarCocina.setModel(new DefaultComboBoxModel<Object>(new String[] {Main.modelo0, Main.modelo1, Main.modelo2, Main.modelo3, Main.modelo4}));
+		cboModificarCocina.setModel(new DefaultComboBoxModel(new String[] {Main.modelo0, Main.modelo1, Main.modelo2, Main.modelo3, Main.modelo4}));
 		panel.add(cboModificarCocina);
 		
 		lblPrecio = new JLabel("Precio (S/)");
@@ -116,8 +99,7 @@ public class DialogModificarCocina extends JDialog implements ActionListener {
 		
 		txtModificarPrecio = new JTextField();
 		txtModificarPrecio.setBorder(new SoftBevelBorder(BevelBorder.LOWERED, null, null, null, null));
-		txtModificarPrecio.setBackground(new Color(255, 255, 255));
-		txtModificarPrecio.setToolTipText("Precio en soles");
+		txtModificarPrecio.setEditable(false);
 		panel.add(txtModificarPrecio);
 		txtModificarPrecio.setColumns(10);
 		
@@ -128,8 +110,7 @@ public class DialogModificarCocina extends JDialog implements ActionListener {
 		
 		txtModificarAncho = new JTextField();
 		txtModificarAncho.setBorder(new SoftBevelBorder(BevelBorder.LOWERED, null, null, null, null));
-		txtModificarAncho.setBackground(new Color(255, 255, 255));
-		txtModificarAncho.setToolTipText("Ancho en centimetros");
+		txtModificarAncho.setEditable(false);
 		panel.add(txtModificarAncho);
 		txtModificarAncho.setColumns(10);
 		
@@ -140,8 +121,7 @@ public class DialogModificarCocina extends JDialog implements ActionListener {
 		
 		txtModificarAlto = new JTextField();
 		txtModificarAlto.setBorder(new SoftBevelBorder(BevelBorder.LOWERED, null, null, null, null));
-		txtModificarAlto.setBackground(new Color(255, 255, 255));
-		txtModificarAlto.setToolTipText("Alto en centimetros");
+		txtModificarAlto.setEditable(false);
 		panel.add(txtModificarAlto);
 		txtModificarAlto.setColumns(10);
 		
@@ -152,8 +132,7 @@ public class DialogModificarCocina extends JDialog implements ActionListener {
 		
 		txtModificarFondo = new JTextField();
 		txtModificarFondo.setBorder(new SoftBevelBorder(BevelBorder.LOWERED, null, null, null, null));
-		txtModificarFondo.setBackground(new Color(255, 255, 255));
-		txtModificarFondo.setToolTipText("Fondo en centimetros");
+		txtModificarFondo.setEditable(false);
 		panel.add(txtModificarFondo);
 		txtModificarFondo.setColumns(10);
 		
@@ -164,10 +143,19 @@ public class DialogModificarCocina extends JDialog implements ActionListener {
 		
 		txtModificarQuemadores = new JTextField();
 		txtModificarQuemadores.setBorder(new SoftBevelBorder(BevelBorder.LOWERED, null, null, null, null));
-		txtModificarQuemadores.setBackground(new Color(255, 255, 255));
-		txtModificarQuemadores.setToolTipText("Cantidad de quemadores");
+		txtModificarQuemadores.setEditable(false);
 		panel.add(txtModificarQuemadores);
 		txtModificarQuemadores.setColumns(10);
+		
+		btnCerrarVentana = new JButton("Cerrar");
+		btnCerrarVentana.setBorder(null);
+		btnCerrarVentana.setFont(new Font("Tahoma", Font.BOLD, 11));
+		btnCerrarVentana.setForeground(new Color(255, 255, 255));
+		btnCerrarVentana.setBackground(new Color(234, 85, 85));
+		btnCerrarVentana.addActionListener(this);
+		btnCerrarVentana.setBounds(366, 287, 152, 37);
+		contentPane.add(btnCerrarVentana);
+		
 		
 		
 		
@@ -177,9 +165,9 @@ public class DialogModificarCocina extends JDialog implements ActionListener {
 		contentPane.add(panel_1);
 		
 		lblModeloCocina = new JLabel("");
-		lblModeloCocina.setHorizontalAlignment(SwingConstants.RIGHT);
+		lblModeloCocina.setHorizontalAlignment(SwingConstants.LEFT);
 		lblModeloCocina.setFont(new Font("Tahoma", Font.BOLD, 25));
-		lblModeloCocina.setBounds(271, 243, 264, 81);
+		lblModeloCocina.setBounds(254, 59, 264, 54);
 		contentPane.add(lblModeloCocina);
 		
 		txtModificarPrecio.setText(String.valueOf(Main.precio0));
@@ -189,124 +177,24 @@ public class DialogModificarCocina extends JDialog implements ActionListener {
 		txtModificarQuemadores.setText(String.valueOf(Main.quemadores0));
 		lblModeloCocina.setText(Main.modelo0);
 		
-		lblModelo = new JLabel("Modelo");
+		lblModelo = new JLabel("Ver Cocina - Modelo:");
 		lblModelo.setForeground(new Color(0, 128, 192));
-		lblModelo.setHorizontalAlignment(SwingConstants.RIGHT);
+		lblModelo.setHorizontalAlignment(SwingConstants.LEFT);
 		lblModelo.setFont(new Font("Tahoma", Font.BOLD, 15));
-		lblModelo.setBounds(418, 223, 117, 37);
+		lblModelo.setBounds(254, 33, 222, 37);
 		contentPane.add(lblModelo);
 	}
-	
-	
 	
 	public void actionPerformed(ActionEvent e) {
 		if (e.getSource() == cboModificarCocina) {
 			actionPerformedCboModificarCocina(e);
-		}
-		if (e.getSource() == btnEnviarModificacion) {
-			actionPerformedBtnEnviarModificacion(e);
 		}
 		if (e.getSource() == btnCerrarVentana) {
 			actionPerformedBtnCerrarVentana(e);
 		}
 	}
 	
-//	Metodo cuando se aprieta el boton de modificar
-	public void enviarModificarCocina() {
-//		Obtener el indice del Combo Box
-		indexModeloSeleccionado = cboModificarCocina.getSelectedIndex();
-		double precioModificado, anchoModificado, altoModificado, fondoModificado;
-		int quemadoresModificado;
-		
-//		Entrada de datos
-		precioModificado = Double.parseDouble(txtModificarPrecio.getText());
-		anchoModificado = Double.parseDouble(txtModificarAncho.getText());
-		altoModificado = Double.parseDouble(txtModificarAlto.getText());
-		fondoModificado = Double.parseDouble(txtModificarFondo.getText());
-		quemadoresModificado = Integer.parseInt(txtModificarQuemadores.getText());
-		
-		boolean validacion = validarEntrada();
-
-		if (validacion) {
-//		Modificar las variables globales con los nuevos datos.
-		switch (indexModeloSeleccionado) {
-			case 0:
-				Main.precio0 = precioModificado;
-				Main.alto0 = altoModificado;
-				Main.ancho0 = anchoModificado;
-				Main.fondo0 = fondoModificado;
-				Main.quemadores0 = quemadoresModificado;
-				break;
-			case 1:
-				Main.precio1 = precioModificado;
-				Main.alto1 = altoModificado;
-				Main.ancho1 = anchoModificado;
-				Main.fondo1 = fondoModificado;
-				Main.quemadores1 = quemadoresModificado;
-				break;
-			case 2:
-				Main.precio2 = precioModificado;
-				Main.alto2 = altoModificado;
-				Main.ancho2 = anchoModificado;
-				Main.fondo2 = fondoModificado;
-				Main.quemadores2 = quemadoresModificado;
-				break;
-			case 3:
-				Main.precio3 = precioModificado;
-				Main.alto3 = altoModificado;
-				Main.ancho3 = anchoModificado;
-				Main.fondo3 = fondoModificado;
-				Main.quemadores3 = quemadoresModificado;
-				break;
-			case 4:
-				Main.precio4 = precioModificado;
-				Main.alto4 = altoModificado;
-				Main.ancho4 = anchoModificado;
-				Main.fondo4 = fondoModificado;
-				Main.quemadores4 = quemadoresModificado;
-			default:
-				break;
-		}
-		
-//		Enviar un mensaje de confirmacion
-		JOptionPane.showMessageDialog(this, "Cocina modificada correctamente");
-	}
-}
 	
-	
-//	Metodo que se encarga de que los valores sean numeros positivos y no letras
-	public boolean validarEntrada() {
-
-		double precioModificado, anchoModificado, altoModificado, fondoModificado;
-		int quemadoresModificado;
-	    try {
-	        precioModificado = Double.parseDouble(txtModificarPrecio.getText());
-	        anchoModificado = Double.parseDouble(txtModificarAncho.getText());
-	        altoModificado = Double.parseDouble(txtModificarAlto.getText());
-	        fondoModificado = Double.parseDouble(txtModificarFondo.getText());
-	        quemadoresModificado = Integer.parseInt(txtModificarQuemadores.getText());
-
-	        // Validar que los valores sean positivos
-	        if (precioModificado <= 0 || anchoModificado <= 0 || altoModificado <= 0 || fondoModificado <= 0 || quemadoresModificado <= 0) {
-	            // Mostrar un mensaje de error o realizar alguna acci�n
-	            // Por ejemplo:
-	        	JOptionPane.showMessageDialog(this, "Los valores deben ser positivos");
-	            return false;
-	        }
-
-	        // Si todas las validaciones pasan, retornar true
-	        return true;
-	    } catch (NumberFormatException e) {
-	        // Capturar excepci�n si el formato de entrada no es v�lido (por ejemplo, si se ingresan letras en lugar de n�meros)
-	        // Mostrar un mensaje de error o realizar alguna acci�n
-	        // Por ejemplo:
-	    	JOptionPane.showMessageDialog(this, "Tipo de dato incorrecto, ingrese n�meros reales");
-	        return false;
-	    }
-	}
-
-	
-//	Metodo para cargar las propiedades de las cocinas en el formulario.
 	public void mostrarAtributosComboBox() {
 		indexModeloSeleccionado = cboModificarCocina.getSelectedIndex();
 		switch (indexModeloSeleccionado) {
@@ -353,28 +241,10 @@ public class DialogModificarCocina extends JDialog implements ActionListener {
 				break;
 		}
 	}
-	
-	
-//	-------------------------------
-//	Acciones de los botones
-	
-//		Modificar Datos
-	protected void actionPerformedBtnEnviarModificacion(ActionEvent e) {
-		if (validarEntrada()) {
-			enviarModificarCocina();
-		}
-		
-	}
-	
-//		Cargar datos en ComboBox
 	protected void actionPerformedCboModificarCocina(ActionEvent e) {
 		mostrarAtributosComboBox();
 	}
-	
-//		Cerrar Ventana
 	protected void actionPerformedBtnCerrarVentana(ActionEvent e) {
 		dispose();
 	}
-	
-
 }

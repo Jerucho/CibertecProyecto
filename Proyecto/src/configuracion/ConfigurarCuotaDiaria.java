@@ -1,4 +1,4 @@
-package cibertec;
+package configuracion;
 
 import java.awt.BorderLayout;
 import java.awt.FlowLayout;
@@ -7,6 +7,9 @@ import javax.swing.JButton;
 import javax.swing.JDialog;
 import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
+
+import cibertec.Main;
+
 import javax.swing.JLabel;
 import javax.swing.JTextField;
 import java.awt.event.ActionListener;
@@ -18,6 +21,7 @@ public class ConfigurarCuotaDiaria extends JDialog implements ActionListener {
 	private final JPanel contentPanel = new JPanel();
 	private JTextField txtCuotaDiaria;
 	private JButton btnConfirmar;
+	private JButton btnCerrar;
 
 	/**
 	 * Launch the application.
@@ -26,6 +30,7 @@ public class ConfigurarCuotaDiaria extends JDialog implements ActionListener {
 		try {
 			ConfigurarCuotaDiaria dialog = new ConfigurarCuotaDiaria();
 			dialog.setDefaultCloseOperation(JDialog.DISPOSE_ON_CLOSE);
+			dialog.setLocationRelativeTo(null);
 			dialog.setVisible(true);
 		} catch (Exception e) {
 			e.printStackTrace();
@@ -53,13 +58,14 @@ public class ConfigurarCuotaDiaria extends JDialog implements ActionListener {
 			txtCuotaDiaria.setColumns(10);
 		}
 		{
-			btnConfirmar = new JButton("Confirmar'");
+			btnConfirmar = new JButton("Confirmar");
 			btnConfirmar.addActionListener(this);
 			btnConfirmar.setBounds(320, 11, 89, 23);
 			contentPanel.add(btnConfirmar);
 		}
 		{
-			JButton btnCerrar = new JButton("Cerrar");
+			btnCerrar = new JButton("Cerrar");
+			btnCerrar.addActionListener(this);
 			btnCerrar.setBounds(320, 45, 89, 23);
 			contentPanel.add(btnCerrar);
 		}
@@ -68,6 +74,9 @@ public class ConfigurarCuotaDiaria extends JDialog implements ActionListener {
 	}
 
 	public void actionPerformed(ActionEvent e) {
+		if (e.getSource() == btnCerrar) {
+			actionPerformedBtnCerrar(e);
+		}
 		if (e.getSource() == btnConfirmar) {
 			actionPerformedBtnConfirmar(e);
 		}
@@ -79,6 +88,9 @@ public class ConfigurarCuotaDiaria extends JDialog implements ActionListener {
 		
 		Main.cuotaDiaria=cuotaDiariaMod;
 		
+		dispose();
+	}
+	protected void actionPerformedBtnCerrar(ActionEvent e) {
 		dispose();
 	}
 }

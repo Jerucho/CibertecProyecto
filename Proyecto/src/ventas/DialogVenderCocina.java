@@ -1,4 +1,4 @@
-package cibertec;
+package ventas;
 
 import java.awt.Color;
 import java.awt.FlowLayout;
@@ -19,6 +19,11 @@ import javax.swing.JTextArea;
 import javax.swing.JTextField;
 import javax.swing.border.EmptyBorder;
 import javax.swing.border.TitledBorder;
+
+import alertas.MensajeAlerta;
+import cibertec.Main;
+import modulos.ComprobarNumero;
+import modulos.ParsearNumeros;
 
 public class DialogVenderCocina extends JDialog implements ActionListener {
 
@@ -49,6 +54,7 @@ public class DialogVenderCocina extends JDialog implements ActionListener {
 		try {
 			DialogVenderCocina dialog = new DialogVenderCocina();
 			dialog.setDefaultCloseOperation(JDialog.DISPOSE_ON_CLOSE);
+			dialog.setLocationRelativeTo(null);
 			dialog.setVisible(true);
 		}
 		catch (Exception e) {
@@ -160,34 +166,8 @@ public class DialogVenderCocina extends JDialog implements ActionListener {
 			actionPerformedBtnVender(e);
 		}
 	}
-	protected void actionPerformedBtnVender(ActionEvent e) {
-		
-//		Si la entrada es valida, ejecutar la venta
-		if (entradaDatos()) {
-			// Precios
-			impCompra = generarImpCompra(modeloSeleccionado, cantidad);
-	
-			// Importe de Descuento
-			impDes = generarImpDescto(cantidad, impCompra);
-	
-			// Importe a Pagar
-			impPag = generarImpPagar(impCompra, impDes);
-	
-			// Obsequio por la cantidad
-			obs = generarObsequio(cantidad);
-	
-			// salida de resultados
-			salidaDatos();
-		}else mostrarError();
 
-	}
-		
-	public void mostrarError() {
-		JOptionPane.showMessageDialog(this, "Cantidad invalida, revisa de nuevo"); 
-		txtVenderCantidad.setText("");
-		txtVenderCantidad.requestFocus();
-	}
-	
+//	Al cambiar de modelo, cambiar el precio en los JTextField
 	protected void actionPerformedCboModelo(ActionEvent e) {
 		int modeloSeleccionado = cboModelo.getSelectedIndex();
 
@@ -215,41 +195,20 @@ public class DialogVenderCocina extends JDialog implements ActionListener {
 
 	}
 
+	
+//	Recibir, validar y parsear la cantidad
 	public boolean entradaDatos() {
-		// Lectura de datos
-		try {
-			modeloSeleccionado = cboModelo.getSelectedIndex();
-			modelo = cboModelo.getSelectedItem().toString();
-			
-			cantidad = Integer.parseInt(txtVenderCantidad.getText());
+		cantidad = ParsearNumeros.parsearEntero(txtVenderCantidad.getText());	
+		modeloSeleccionado = cboModelo.getSelectedIndex();
+		modelo = cboModelo.getSelectedItem().toString();
+		boolean validarCantidad = ComprobarNumero.comprobarCantidadNumero(cantidad);
 		
-//			Comprobar si la cantidad es un numero positivo
-			if (cantidad > 0) return true;
-			
-		} catch (NumberFormatException e) {
-			return false;		
-		}
-		
-		return false;
-		
+//		Devuelve true si la cantidad es un numero positivo.
+		return validarCantidad;	
 	}
 
-	public double generarImpDescto(int cantidad, double impCompra) {
-		if (cantidad > 1 && cantidad <= 5)
-			return impCompra * 0.075;
-
-		else if (cantidad > 5 && cantidad <= 10)
-			return impCompra * 0.10;
-
-		else if (cantidad > 10 && cantidad <= 15)
-			return impCompra * 0.125;
-
-		else if (cantidad > 15)
-			return impCompra * 0.15;
-
-		return 0;
-	}
-
+	
+//	Genera el importe de compra: recibe el modelo y la cantidad
 	public double generarImpCompra(int modeloSeleccionado, int cantidad) {
 
 		switch (modeloSeleccionado) {
@@ -270,37 +229,79 @@ public class DialogVenderCocina extends JDialog implements ActionListener {
 			return Main.precio4 * cantidad;
 
 		default:
-			break;
+			return 0;
 		}
-		return 0;
 	}
 
+	public double generarImpDescto(int cantidad, double impCompra) {
+		if (cantidad <= 5) return impCompra * (Main.porcentaje1 / 100);
+
+		else if (cantidad <= 10) return impCompra * (Main.porcentaje2 / 100);
+
+		else if (cantidad <= 15) return impCompra * (Main.porcentaje3 / 100);
+
+		else return impCompra * (Main.porcentaje4 / 100);
+
+	}
+	
 	public double generarImpPagar(double impCompra, double impDes) {
 		return impCompra - impDes;
 	}
-
+	
 	public String generarObsequio(int cantidad) {
-		if (cantidad == 1)
-			return "Cafetera";
-		else if (cantidad >= 2 && cantidad <= 5)
-			return "Licuadora";
-		if (cantidad > 5)
-			return "Extractor";
-		return "";
+		if (cantidad == 1) return Main.obsequio1;
+		else if (cantidad <= 5)	return Main.obsequio2;
+		else return Main.obsequio3;
+
 	}
 
 	public void salidaDatos() {
-		txtS.setText("BOLETA DE VENTAS" + "\n");
-		txtS.append("Modelo                          : " + modelo + "\n");
+		txtS.setText("Modelo                          : " + modelo + "\n");
 		txtS.append("Precio                          : S/ " + precio + "\n");
 		txtS.append("Cantidad 	                : " + cantidad + "\n");
 		txtS.append("Importe Compra                  : S/ " + impCompra + "\n");
 		txtS.append("Importe Descuento               : S/ " + impDes + "\n");
 		txtS.append("Importe Pagar                   : S/ " + impPag + "\n");
 		txtS.append("Obsequio                        : " + obs);
+	}	
+	
+	
+	public void mostrarError() {
+		MensajeAlerta.alerta("Ingrese un numero valido", "Tipo de dato incorrecto", 0);
+		txtS.setText("");
+		txtVenderCantidad.setText("");
+		txtVenderCantidad.requestFocus();
 	}
+	
+	
+//	-----------------------
+	
+//	Acciones de los botones
+	
+	protected void actionPerformedBtnVender(ActionEvent e) {
+		
+//		Si la entrada es valida, ejecutar la venta
+		if (entradaDatos()) {
+			// Precios
+			impCompra = generarImpCompra(modeloSeleccionado, cantidad);
+	
+			// Importe de Descuento
+			impDes = generarImpDescto(cantidad, impCompra);
+	
+			// Importe a Pagar
+			impPag = generarImpPagar(impCompra, impDes);
+	
+			// Obsequio por la cantidad
+			obs = generarObsequio(cantidad);
+	
+			// salida de resultados
+			salidaDatos();
+		}else mostrarError(); ;
 
+	}
 	protected void actionPerformedBtnCerrar(ActionEvent e) {
 		dispose();
 	}
+	
+	
 }

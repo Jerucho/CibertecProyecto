@@ -1,4 +1,4 @@
-package cibertec;
+package mantenimiento;
 
 import java.awt.BorderLayout;
 import java.awt.Color;
@@ -14,6 +14,8 @@ import javax.swing.JScrollPane;
 import javax.swing.JTextArea;
 import javax.swing.border.EmptyBorder;
 import javax.swing.border.TitledBorder;
+
+import cibertec.Main;
 
 public class DialogListarCocinas extends JDialog implements ActionListener {
 
@@ -33,6 +35,7 @@ public class DialogListarCocinas extends JDialog implements ActionListener {
 		try {
 			DialogListarCocinas dialog = new DialogListarCocinas();
 			dialog.setDefaultCloseOperation(JDialog.DISPOSE_ON_CLOSE);
+			dialog.setLocationRelativeTo(null);
 			dialog.setVisible(true);
 		}
 		catch (Exception e) {
@@ -99,43 +102,25 @@ public class DialogListarCocinas extends JDialog implements ActionListener {
 		listarCocinas();
 	}
 
+	
+	public void imprimir(String modelo, double precio,double fondo, double ancho, double alto, int quemadores) {
+		txtS.append("Modelo             : " + modelo + "\n");
+		txtS.append("Precio             : S/ " + precio + "\n");
+		txtS.append("Profundidad  	   : " + fondo + " cm" + "\n");
+		txtS.append("Ancho              : " + ancho + " cm" + "\n");
+		txtS.append("Alto               : " + alto + " cm" + "\n");
+		txtS.append("Quemadores	   : " + quemadores + "\n\n");
+
+	}
+	
 	public void listarCocinas() {
 		txtS.setText("LISTADO DE COCINAS  \n\n");
-		txtS.append("Modelo             : " + Main.modelo0 + "\n");
-		txtS.append("Precio             : S/ " + Main.precio0 + "\n");
-		txtS.append("Profundidad  	   : " + Main.fondo0 + " cm" + "\n");
-		txtS.append("Ancho              : " + Main.ancho0 + " cm" + "\n");
-		txtS.append("Alto               : " + Main.alto0 + " cm" + "\n");
-		txtS.append("Quemadores	   : " + Main.quemadores0 + "\n\n");
-
-		txtS.append("Modelo             : " + Main.modelo1 + "\n");
-		txtS.append("Precio             : S/ " + Main.precio1 + "\n");
-		txtS.append("Profundidad  	   : " + Main.fondo1 + " cm" + "\n");
-		txtS.append("Ancho              : " + Main.ancho1 + " cm" + "\n");
-		txtS.append("Alto               : " + Main.alto1 + " cm" + "\n");
-		txtS.append("Quemadores	   : " + Main.quemadores1 + "\n\n");
-
-		txtS.append("Modelo             : " + Main.modelo2 + "\n");
-		txtS.append("Precio             : S/" + Main.precio2 + "\n");
-		txtS.append("Profundidad  	   : " + Main.fondo2 + " cm" + "\n");
-		txtS.append("Ancho              : " + Main.ancho2 + " cm" + "\n");
-		txtS.append("Alto               : " + Main.alto2 + " cm" + "\n");
-		txtS.append("Quemadores	   : " + Main.quemadores2 + "\n\n");
-
-		txtS.append("Modelo             : " + Main.modelo3 + "\n");
-		txtS.append("Precio             : S/" + Main.precio3 + "\n");
-		txtS.append("Profundidad  	   : " + Main.fondo3 + " cm" + "\n");
-		txtS.append("Ancho              : " + Main.ancho3 + " cm" + "\n");
-		txtS.append("Alto               : " + Main.alto3 + " cm" + "\n");
-		txtS.append("Quemadores	   : " + Main.quemadores3 + "\n\n");
-
-		txtS.append("Modelo             : " + Main.modelo4 + "\n");
-		txtS.append("Precio             : S/" + Main.precio4 + "\n");
-		txtS.append("Profundidad  	   : " + Main.fondo4 + " cm" + "\n");
-		txtS.append("Ancho              : " + Main.ancho4 + " cm" + "\n");
-		txtS.append("Alto               : " + Main.alto4 + " cm" + "\n");
-		txtS.append("Quemadores	   : " + Main.quemadores4);
-
+		
+		imprimir(Main.modelo0, Main.precio0, Main.fondo0, Main.ancho0, Main.alto0, Main.quemadores0);
+		imprimir(Main.modelo1, Main.precio1, Main.fondo1, Main.ancho1, Main.alto1, Main.quemadores1);
+		imprimir(Main.modelo2, Main.precio2, Main.fondo2, Main.ancho2, Main.alto2, Main.quemadores2);
+		imprimir(Main.modelo3, Main.precio3, Main.fondo3, Main.ancho3, Main.alto3, Main.quemadores3);
+		
 //		Empezar desde el principio
 		txtS.setCaretPosition(0);
 	}

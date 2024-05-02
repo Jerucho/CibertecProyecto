@@ -1,4 +1,4 @@
-package cibertec;
+package ventas;
 
 import java.awt.BorderLayout;
 import java.awt.Color;
@@ -36,6 +36,7 @@ public class DialogGenerarReporte extends JDialog implements ActionListener {
 		try {
 			DialogGenerarReporte dialog = new DialogGenerarReporte();
 			dialog.setDefaultCloseOperation(JDialog.DISPOSE_ON_CLOSE);
+			dialog.setLocationRelativeTo(null);
 			dialog.setVisible(true);
 		}
 		catch (Exception e) {

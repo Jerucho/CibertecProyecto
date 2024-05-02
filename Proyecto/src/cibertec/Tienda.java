@@ -22,6 +22,16 @@ import javax.swing.UIManager;
 import javax.swing.border.CompoundBorder;
 import javax.swing.border.EmptyBorder;
 
+import configuracion.ConfigurarCuotaDiaria;
+import configuracion.ConfigurarDescuentos;
+import configuracion.ConfigurarObsequios;
+import configuracion.DialogConfigurar;
+import mantenimiento.DialogListarCocinas;
+import mantenimiento.DialogModificarCocina;
+import mantenimiento.DialogVerCocina;
+import ventas.DialogGenerarReporte;
+import ventas.DialogVenderCocina;
+
 public class Tienda extends JFrame implements ActionListener {
 
 	private static final long serialVersionUID = 1L;
@@ -70,6 +80,7 @@ public class Tienda extends JFrame implements ActionListener {
 			public void run() {
 				try {
 					Tienda frame = new Tienda();
+					frame.setLocationRelativeTo(null);
 					frame.setVisible(true);
 				}
 				catch (Exception e) {
@@ -229,6 +240,7 @@ public class Tienda extends JFrame implements ActionListener {
 		panel_1.add(btnGenerarReporte);
 		
 		btnConfig = new JButton("Configuracion");
+		btnConfig.addActionListener(this);
 		btnConfig.setForeground(new Color(0, 0, 0));
 		btnConfig.setIcon(new ImageIcon(Tienda.class.getResource("/imagenes/icons8-servicios-50.png")));
 		btnConfig.setIconTextGap(20);
@@ -243,6 +255,9 @@ public class Tienda extends JFrame implements ActionListener {
 	}
 
 	public void actionPerformed(ActionEvent e) {
+		if (e.getSource() == btnConfig) {
+			actionPerformedBtnConfig(e);
+		}
 		if (e.getSource() == menuConfigCuotaDiaria) {
 			actionPerformedMenuConfigCuotaDiaria(e);
 		}
@@ -302,7 +317,7 @@ public class Tienda extends JFrame implements ActionListener {
 	ConfigurarDescuentos ventanaConfigurarDescuentos = new ConfigurarDescuentos();
 	ConfigurarObsequios ventanaConfigurarObsequios = new ConfigurarObsequios();
 	ConfigurarCuotaDiaria ventanaConfiguraraCuotaDiaria = new ConfigurarCuotaDiaria(); 
-	
+	DialogConfigurar ventanaConfigurar = new DialogConfigurar();
 //	-----------------------------
 //	Botones del programa
 //		Mantenimiento
@@ -326,6 +341,9 @@ public class Tienda extends JFrame implements ActionListener {
 	}
 
 //		Configuracion
+	protected void actionPerformedBtnConfig(ActionEvent e) {
+		ventanaConfigurar.abrirVentana();
+	}
 	
 	
 //	------------------------------------
@@ -362,4 +380,5 @@ public class Tienda extends JFrame implements ActionListener {
 	protected void actionPerformedMenuConfigCuotaDiaria(ActionEvent e) {
 		ventanaConfiguraraCuotaDiaria.abrirVentana();
 	}
+	
 }

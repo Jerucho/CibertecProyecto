@@ -1,4 +1,4 @@
-package cibertec;
+package configuracion;
 
 import java.awt.BorderLayout;
 import java.awt.FlowLayout;
@@ -7,6 +7,9 @@ import javax.swing.JButton;
 import javax.swing.JDialog;
 import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
+
+import cibertec.Main;
+
 import javax.swing.JLabel;
 import java.awt.Font;
 import javax.swing.JTextField;
@@ -30,6 +33,7 @@ public class ConfigurarObsequios extends JDialog implements ActionListener {
 		try {
 			ConfigurarObsequios dialog = new ConfigurarObsequios();
 			dialog.setDefaultCloseOperation(JDialog.DISPOSE_ON_CLOSE);
+			dialog.setLocationRelativeTo(null);
 			dialog.setVisible(true);
 		} catch (Exception e) {
 			e.printStackTrace();

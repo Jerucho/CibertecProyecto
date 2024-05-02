@@ -41,6 +41,7 @@ public class InicioSesion extends JFrame implements ActionListener {
 			public void run() {
 				try {
 					InicioSesion frame = new InicioSesion();
+					frame.setLocationRelativeTo(null);
 					frame.setVisible(true);
 				}
 				catch (Exception e) {

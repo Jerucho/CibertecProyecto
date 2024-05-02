@@ -3,35 +3,35 @@ package cibertec;
 public class Main {
 
 	
-	// Datos mínimos de la primera cocina
+	// Datos mï¿½nimos de la primera cocina
 	public static String modelo0 = "Mabe EMP6120PG0";
 	public static double precio0 = 949.0;
 	public static double fondo0 = 58.6;
 	public static double ancho0 = 60.0;
 	public static double alto0 = 91.0;
 	public static int quemadores0 = 4;
-	// Datos mínimos de la segunda cocina
+	// Datos mï¿½nimos de la segunda cocina
 	public static String modelo1 = "Indurama Parma";
 	public static double precio1 = 1089.0;
 	public static double ancho1 = 80.0;
 	public static double alto1 = 94.0;
 	public static double fondo1 = 67.5;
 	public static int quemadores1 = 6;
-	// Datos mínimos de la tercera cocina
+	// Datos mï¿½nimos de la tercera cocina
 	public static String modelo2 = "Sole COSOL027";
 	public static double precio2 = 850.0;
 	public static double ancho2 = 60.0;
 	public static double alto2 = 90.0;
 	public static double fondo2 = 50.0;
 	public static int quemadores2 = 4;
-	// Datos mínimos de la cuarta cocina
+	// Datos mï¿½nimos de la cuarta cocina
 	public static String modelo3 = "Coldex CX602";
 	public static double precio3 = 629.0;
 	public static double ancho3 = 61.6;
 	public static double alto3 = 95.0;
 	public static double fondo3 = 51.5;
 	public static int quemadores3 = 5;
-	// Datos mínimos de la quinta cocina
+	// Datos mï¿½nimos de la quinta cocina
 	public static String modelo4 = "Reco Dakota";
 	public static double precio4 = 849.0;
 	public static double ancho4 = 75.4;
@@ -48,7 +48,7 @@ public class Main {
 	public static String obsequio1 = "Cafetera";
 	public static String obsequio2 = "Licuadora";
 	public static String obsequio3 = "Extractor";
-	// Cantidad óptima de unidades vendidas
+	// Cantidad ï¿½ptima de unidades vendidas
 	public static int cantidadOptima = 30;
 	// Cuota diaria
 	public static double cuotaDiaria = 75000;
@@ -56,6 +56,7 @@ public class Main {
 	
 	public static void main(String[] args) {
 		InicioSesion ventanaInicioSesion = new InicioSesion();
+		ventanaInicioSesion.setLocationRelativeTo(null);
 		ventanaInicioSesion.abrirVentana();
 	}
 
